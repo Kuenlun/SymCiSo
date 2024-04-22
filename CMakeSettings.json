@@ -1,15 +1,45 @@
 ﻿{
     "configurations": [
         {
-            "name": "x64-Debug",
+            "type": "default",
+            "project": "CMakeLists.txt",
+            "projectTarget": "SymCiSo_Test.exe (Debug\\SymCiSo_Test.exe)",
+            "name": "Debug",
             "generator": "Ninja",
-            "configurationType": "Release",
+            "configurationType": "Debug",
             "inheritEnvironments": [ "msvc_x64_x64" ],
             "buildRoot": "${projectDir}\\build\\${name}",
             "installRoot": "${projectDir}\\out\\install\\${name}",
             "cmakeCommandArgs": "",
             "buildCommandArgs": "",
-            "ctestCommandArgs": ""
+            "ctestCommandArgs": "",
+            "variables": [
+                {
+                    "name": "BUILD_BENCHMARKS",
+                    "value": "False",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "project": "CMakeLists.txt",
+            "projectTarget": "SymCiSo_Test.exe (Release\\SymCiSo_Test.exe)",
+            "name": "Release",
+            "generator": "Ninja",
+            "configurationType": "Release",
+            "buildRoot": "${projectDir}\\build\\${name}",
+            "installRoot": "${projectDir}\\out\\install\\${name}",
+            "cmakeCommandArgs": "",
+            "buildCommandArgs": "",
+            "ctestCommandArgs": "",
+            "inheritEnvironments": [ "msvc_x64_x64" ],
+            "variables": [
+                {
+                    "name": "BUILD_BENCHMARKS",
+                    "value": "False",
+                    "type": "BOOL"
+                }
+            ]
         }
     ]
 }
