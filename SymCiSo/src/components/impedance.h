@@ -1,30 +1,19 @@
 #pragma once
 
-#include <array>
-#include <memory>
+#include "component.h"
 
-#include <symengine/symbol.h>
-
-#include "node.h"
-
-namespace SymCiSo
+namespace SymCiSo 
 {
 
-	using SymEngine::Symbol;
-	using SymEngine::RCP;
-	using SymEngine::make_rcp;
-
-	class Impedance
+	class Impedance : public Component
 	{
 	public:
 		Impedance(const std::string& name);
 
 		inline RCP<const Symbol> get_impedance() const { return m_impedance; }
-		std::shared_ptr<Node>& get_terminal(const size_t idx) { return m_terminals[idx]; }
-			
+
 	private:
 		RCP<const Symbol> m_impedance;
-		std::array<std::shared_ptr<Node>, 2> m_terminals;
 	};
 
 	class Resistor : public Impedance

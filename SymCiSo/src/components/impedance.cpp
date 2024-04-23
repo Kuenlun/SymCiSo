@@ -6,10 +6,10 @@ namespace SymCiSo
 {
 
 	Impedance::Impedance(const std::string& name)
-		: m_impedance{ make_rcp<const Symbol>(name) }
+		: Component(2),
+			m_impedance{ make_rcp<const Symbol>(name) }
 	{
-		for (std::shared_ptr<Node>& terminal : m_terminals)
-			terminal = std::make_shared<Node>();
+		SYMCISO_CORE_TRACE("Impedance instance created");
 	}
 
 	Resistor::Resistor(const std::string& name)
@@ -21,13 +21,13 @@ namespace SymCiSo
 	Capacitor::Capacitor(const std::string& name)
 		: Impedance(name)
 	{
-		SYMCISO_CORE_INFO("Resistor instance created");
+		SYMCISO_CORE_INFO("Capacitor instance created");
 	}
 
 	Inductor::Inductor(const std::string& name)
 		: Impedance(name)
 	{
-		SYMCISO_CORE_INFO("Resistor instance created");
+		SYMCISO_CORE_INFO("Inductor instance created");
 	}
 
 } // namespace SymCiSo

@@ -11,7 +11,6 @@ int main()
 	SymCiSo::Capacitor c1("C1");
 	SymCiSo::Inductor i1("I1");
 
-
 	SymCiSo::Node::connect(r1.get_terminal(0), c1.get_terminal(0));
 
 	SYMCISO_INFO("R1 resistance is : {}", *r1.get_resistance());
