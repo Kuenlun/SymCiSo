@@ -1,3 +1,6 @@
 [submodule "SymCiSo/vendor/symengine"]
 	path = SymCiSo/vendor/symengine
 	url = https://github.com/symengine/symengine
+[submodule "SymCiSo/vendor/spdlog"]
+	path = SymCiSo/vendor/spdlog
+	url = https://github.com/gabime/spdlog
