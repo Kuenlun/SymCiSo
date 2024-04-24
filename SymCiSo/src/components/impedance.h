@@ -8,7 +8,8 @@ namespace SymCiSo
 	class Impedance : public Component
 	{
 	public:
-		Impedance(const std::weak_ptr<Component> self, const std::string& name);
+		Impedance(const std::string& name);
+		virtual ~Impedance();
 
 		inline RCP<const Symbol> get_impedance() const { return m_impedance; }
 
@@ -19,7 +20,8 @@ namespace SymCiSo
 	class Resistor : public Impedance
 	{
 	public:
-		Resistor(const std::weak_ptr<Component> self, const std::string& name);
+		Resistor(const std::string& name);
+		~Resistor();
 
 		inline RCP<const Symbol> get_resistance() const { return get_impedance(); }
 	};
@@ -27,7 +29,8 @@ namespace SymCiSo
 	class Capacitor : public Impedance
 	{
 	public:
-		Capacitor(const std::weak_ptr<Component> self, const std::string& name);
+		Capacitor(const std::string& name);
+		~Capacitor();
 
 		inline RCP<const Symbol> get_capacitance() const { return get_impedance(); }
 	};
@@ -35,7 +38,8 @@ namespace SymCiSo
 	class Inductor : public Impedance
 	{
 	public:
-		Inductor(const std::weak_ptr<Component> self, const std::string& name);
+		Inductor(const std::string& name);
+		~Inductor();
 
 		inline RCP<const Symbol> get_inductance() const { return get_impedance(); }
 	};

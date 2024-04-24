@@ -6,6 +6,8 @@
 #include <spdlog/fmt/ostr.h>
 #pragma warning(pop)
 
+#include "components/component.h"
+
 // With inspiration from Hazel game engine by The Cherno
 // https://github.com/TheCherno/Hazel/blob/f823e2e51854014032fbc18b1fa319294ef98321/Hazel/src/Hazel/Core/Log.h
 
@@ -24,6 +26,31 @@ namespace SymCiSo
 		static std::shared_ptr<spdlog::logger> s_core_logger;
 		static std::shared_ptr<spdlog::logger> s_client_logger;
 	};
+
+	template<typename OStream>
+	inline OStream& operator<<(OStream& os, const Component& component)
+	{
+		return os << component.get_name();
+	}
+
+	template<typename OStream>
+	inline OStream& operator<<(OStream& os, const Node& node)
+	{
+		os << "[";
+		bool first{ true };
+		for (const auto& component : node.get_components())
+		{
+			if (!first)
+				os << ", ";
+			first = false;
+
+			if (const auto& locked = component.lock())
+				os << *locked;
+			else
+				os << "?";
+		}
+		return os << "]";
+	}
 
 } // namespace SymCiSo
 
