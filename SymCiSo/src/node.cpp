@@ -5,8 +5,9 @@
 namespace SymCiSo
 {
 
-	Node::Node()
+	Node::Node(const std::weak_ptr<Component> component)
 	{
+		m_components.push_back(component);
 		SYMCISO_CORE_TRACE("Node instance created");
 	}
 

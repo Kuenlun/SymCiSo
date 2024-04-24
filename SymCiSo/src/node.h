@@ -13,14 +13,14 @@ namespace SymCiSo
 	class Node
 	{
 	public:
-		Node();
+		Node(const std::weak_ptr<Component> component);
 
 		~Node();
 
 		static void connect(const std::shared_ptr<Node>& self, std::shared_ptr<Node>& other);
 
 	private:
-		std::vector<std::shared_ptr<Component>> m_components;
+		std::vector<std::weak_ptr<Component>> m_components;
 	};
 
 } // namespace SymCiSo

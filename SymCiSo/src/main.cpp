@@ -1,17 +1,20 @@
 #include <iostream>
 
 #include "core/log.h"
-#include "components/impedance.h"
+
+#include "circuit.h"
 
 int main()
 {
 	SymCiSo::Log::init();
 
-	SymCiSo::Resistor r1("R1");
-	SymCiSo::Capacitor c1("C1");
-	SymCiSo::Inductor i1("I1");
+	SymCiSo::Circuit circuit;
 
-	SymCiSo::Node::connect(r1.get_terminal(0), c1.get_terminal(0));
+	std::shared_ptr<SymCiSo::Resistor> r1{ circuit.add_component<SymCiSo::Resistor>("R1") };
+	std::shared_ptr<SymCiSo::Capacitor> c1{ circuit.add_component<SymCiSo::Capacitor>("C1") };
 
-	SYMCISO_INFO("R1 resistance is : {}", *r1.get_resistance());
+	SymCiSo::Node::connect(r1->get_terminal(0), c1->get_terminal(0));
+	SymCiSo::Node::connect(r1->get_terminal(0), c1->get_terminal(1));
+
+	SYMCISO_INFO("R1 resistance is : {}", *(r1->get_resistance()));
 }

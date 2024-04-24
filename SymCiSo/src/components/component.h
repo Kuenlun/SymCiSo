@@ -19,11 +19,12 @@ namespace SymCiSo
 	class Component
 	{
 	public:
-		Component(const size_t num_terminals);
-
 		~Component();
 
 		inline std::shared_ptr<Node>& get_terminal(const size_t idx) { return m_terminals[idx]; }
+
+	protected:
+		Component(const std::weak_ptr<Component> self, const size_t num_terminals);
 
 	private:
 		std::vector<std::shared_ptr<Node>> m_terminals;
