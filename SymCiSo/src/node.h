@@ -10,6 +10,12 @@ namespace SymCiSo
 
 	class Component;
 
+	struct Connection
+	{
+		std::weak_ptr<Component> component;
+		size_t	terminal_num;
+	};
+
 	class Node
 	{
 	public:
@@ -17,16 +23,16 @@ namespace SymCiSo
 
 		~Node();
 
-		void add_weak_ref_to_component(const std::weak_ptr<Component> component);
+		void add_connection(const Connection& connection);
 
-		inline const std::vector<std::weak_ptr<Component>>& get_components() const { return m_components; }
-		inline std::vector<std::weak_ptr<Component>>& get_components() { return m_components; }
+		inline const std::vector<Connection>& get_connections() const { return m_connections; }
+		inline std::vector<Connection>& get_connections() { return m_connections; }
 
 	public:
 		static void connect(const std::shared_ptr<Node>& self, std::shared_ptr<Node>& other);
 
 	private:
-		std::vector<std::weak_ptr<Component>> m_components;
+		std::vector<Connection> m_connections;
 	};
 
 } // namespace SymCiSo

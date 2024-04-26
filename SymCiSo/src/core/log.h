@@ -38,16 +38,19 @@ namespace SymCiSo
 	{
 		os << "[";
 		bool first{ true };
-		for (const auto& component : node.get_components())
+		for (const auto& connection : node.get_connections())
 		{
 			if (!first)
 				os << ", ";
 			first = false;
 
-			if (const auto& locked = component.lock())
-				os << *locked;
+			// Show the component
+			if (const auto& locked_component = connection.component.lock())
+				os << *locked_component;
 			else
 				os << "?";
+			// Show the terminal num
+			os << "->" << connection.terminal_num;
 		}
 		return os << "]";
 	}

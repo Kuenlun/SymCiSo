@@ -30,7 +30,6 @@ namespace SymCiSo
 				SYMCISO_CORE_INFO("{}Terminal {} is connected to: {}", char(195), i, *(get_terminals()[i]));
 			else if ( i == get_terminals().size() - 1)
 				SYMCISO_CORE_INFO("{}Terminal {} is connected to: {}", char(192), i, *(get_terminals()[i]));
-
 		}
 	}
 

@@ -22,9 +22,9 @@ namespace SymCiSo
 		virtual ~Component();
 
 		inline std::shared_ptr<Node>& get_terminal(const size_t idx) { return m_terminals[idx]; }
-
 		inline const std::vector<std::shared_ptr<Node>>& get_terminals() const { return m_terminals; }
 		inline std::vector<std::shared_ptr<Node>>& get_terminals() { return m_terminals; }
+		inline size_t get_num_terminals() const { return m_terminals.size(); };
 
 		inline const std::string& get_name() const { return m_name; }
 

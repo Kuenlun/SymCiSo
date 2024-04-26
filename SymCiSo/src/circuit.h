@@ -23,12 +23,24 @@ namespace SymCiSo
 		template<typename T, typename... Args>
 		std::shared_ptr<T> add_component(const Args&... args)
 		{
+			// Create a shared ptr to the new component (Resistor, Capacitor, ...)
 			std::shared_ptr<T> component = std::make_shared<T>(args...);
 
-			// Add each node a weak reference to the component
-			for (const std::shared_ptr<Node>& terminal : component->get_terminals())
-				terminal->add_weak_ref_to_component(component);
-			SYMCISO_CORE_TRACE("Added weak reference to {} terminals", *component);
+			// Add to each terminal (Node) of the component a connection (weak ref to the component,
+			// alongside with the position of the terminal)
+			for (size_t terminal_num{ 0 }; terminal_num < component->get_num_terminals(); ++terminal_num)
+			{
+				// Get a shared ptr to the terminal (Node) at index "terminal_num"
+				const std::shared_ptr<Node>& terminal{ component->get_terminals()[terminal_num] };
+				// Create the connection
+				const Connection connection{
+					.component {component},
+					.terminal_num{ terminal_num },
+				};
+				// Add the connection to the terminal (Node)
+				terminal->add_connection(connection);
+			}
+			SYMCISO_CORE_TRACE("Added terminal connections to {}", *component);
 
 			m_components.emplace_back(component);
 			return component;
