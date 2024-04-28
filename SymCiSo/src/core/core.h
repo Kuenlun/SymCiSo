@@ -8,9 +8,4 @@
 namespace SymCiSo
 {
 
-	class Component;
-	class Node;
-	class Connection;
-	class Circuit;
-
 } // namespace SymCiSo

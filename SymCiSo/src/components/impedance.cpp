@@ -1,7 +1,5 @@
 #include "impedance.h"
 
-#include "core/log.h"
-
 namespace SymCiSo
 {
 

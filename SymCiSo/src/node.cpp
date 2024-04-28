@@ -1,5 +1,7 @@
 #include "node.h"
 
+#include "circuit.h"
+
 namespace SymCiSo
 {
 
@@ -56,31 +58,6 @@ namespace SymCiSo
 				SYMCISO_CORE_WARN("Connection component is dead");
 		}
 		SYMCISO_CORE_INFO("Node {} connected", *self);
-	}
-
-	Component::Component(Circuit* const circuit_ptr,
-		const size_t num_terminals,
-		const std::string& name)
-		: m_circuit_ptr(circuit_ptr), m_name(name)
-	{
-		for (size_t i{ 0 }; i < num_terminals; ++i)
-			m_terminals.emplace_back(std::make_shared<Node>(get_circuit_ptr()));
-
-		SYMCISO_CORE_TRACE("Component instance created: {}", get_name());
-	}
-
-	void Component::print() const
-	{
-		// Show the name of the component
-		SYMCISO_CORE_INFO(*this);
-		// Show each terminal
-		for (size_t i{ 0 }; i < get_terminals().size(); ++i)
-		{
-			if (i != get_terminals().size() - 1)
-				SYMCISO_CORE_INFO("{}Terminal {} is connected to: {}", char(195), i, *(get_terminals()[i]));
-			else if (i == get_terminals().size() - 1)
-				SYMCISO_CORE_INFO("{}Terminal {} is connected to: {}", char(192), i, *(get_terminals()[i]));
-		}
 	}
 
 } // namespace SymCiSo

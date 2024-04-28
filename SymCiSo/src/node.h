@@ -5,7 +5,8 @@
 
 #include "core/core.h"
 #include "core/log.h"
-#include "circuit.h"
+#include "components/component.h"
+#include "connection.h"
 
 namespace SymCiSo
 {

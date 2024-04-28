@@ -4,7 +4,7 @@
 
 #include "core/core.h"
 #include "core/log.h"
-#include "components/component.h"
+#include "component.h"
 
 namespace SymCiSo
 {

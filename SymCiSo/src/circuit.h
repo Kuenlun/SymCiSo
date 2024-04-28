@@ -6,8 +6,7 @@
 
 #include "core/core.h"
 #include "core/log.h"
-#include "connection.h"
-#include "components/impedance.h"
+#include "node.h"
 
 namespace SymCiSo
 {

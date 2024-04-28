@@ -15,6 +15,10 @@ namespace SymCiSo
 	using SymEngine::RCP;
 	using SymEngine::make_rcp;
 
+	// Required to break circular dependency
+	class Node;
+	class Circuit;
+
 	class Component
 	{
 	public:
