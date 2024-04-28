@@ -1,8 +1,6 @@
 #include <iostream>
 
-#include "core/log.h"
-
-#include "circuit.h"
+#include <symciso.h>
 
 int main()
 {
@@ -11,22 +9,19 @@ int main()
 	SymCiSo::Circuit circuit;
 
 	std::shared_ptr<SymCiSo::Resistor> r1_ptr{ circuit.add_component<SymCiSo::Resistor>("R1") };
+	std::shared_ptr<SymCiSo::Resistor> r2_ptr{ circuit.add_component<SymCiSo::Resistor>("R2") };
+	std::shared_ptr<SymCiSo::Resistor> r3_ptr{ circuit.add_component<SymCiSo::Resistor>("R3") };
 	std::shared_ptr<SymCiSo::Capacitor> c1_ptr{ circuit.add_component<SymCiSo::Capacitor>("C1") };
+	std::shared_ptr<SymCiSo::Capacitor> c2_ptr{ circuit.add_component<SymCiSo::Capacitor>("C2") };
 
-	SYMCISO_INFO("Number of components: {}", circuit.get_num_components());
-	//SYMCISO_INFO("Number of circuit nodes: {}", circuit.get_num_nodes());
 	circuit.print();
-	SYMCISO_INFO("Connecttin {} {} to {} {}", *r1_ptr, 0, *c1_ptr, 0);
-	SymCiSo::Node::connect(r1_ptr->get_terminal(0), c1_ptr->get_terminal(0));
+	SymCiSo::Node::connect(r1_ptr->get_terminal(0), r2_ptr->get_terminal(0));
 	circuit.print();
-	SYMCISO_INFO("Connecttin {} {} to {} {}", *r1_ptr, 1, *c1_ptr, 1);
-	SymCiSo::Node::connect(r1_ptr->get_terminal(1), c1_ptr->get_terminal(1));
+	SymCiSo::Node::connect(c1_ptr->get_terminal(0), c2_ptr->get_terminal(0));
 	circuit.print();
-	SYMCISO_INFO("Connecttin {} {} to {} {}", *r1_ptr, 0, *r1_ptr, 0);
-	SymCiSo::Node::connect(r1_ptr->get_terminal(0), r1_ptr->get_terminal(0));
+	SymCiSo::Node::connect(r2_ptr->get_terminal(0), c1_ptr->get_terminal(0));
 	circuit.print();
-	SYMCISO_INFO("Connecttin {} {} to {} {}", *r1_ptr, 0, *r1_ptr, 1);
-	SymCiSo::Node::connect(r1_ptr->get_terminal(0), r1_ptr->get_terminal(1));
+	SymCiSo::Node::connect(r3_ptr->get_terminal(0), c1_ptr->get_terminal(0));
 	circuit.print();
 
 	SYMCISO_INFO("R1 resistance is : {}", *(r1_ptr->get_resistance()));

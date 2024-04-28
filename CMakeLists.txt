@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 # SymCiSo executable
 add_executable(SymCiSo_Test 
     SymCiSo/src/main.cpp
- "SymCiSo/src/core/log.h" "SymCiSo/src/core/log.cpp" "SymCiSo/src/components/impedance.h" "SymCiSo/src/components/impedance.cpp" "SymCiSo/src/node.h"  "SymCiSo/src/node.cpp" "SymCiSo/src/components/component.h" "SymCiSo/src/components/component.cpp" "SymCiSo/src/circuit.h" "SymCiSo/src/circuit.cpp")
+ "SymCiSo/src/core/log.h" "SymCiSo/src/core/log.cpp" "SymCiSo/src/components/impedance.h" "SymCiSo/src/components/impedance.cpp" "SymCiSo/src/node.h"  "SymCiSo/src/node.cpp" "SymCiSo/src/components/component.h" "SymCiSo/src/components/component.cpp" "SymCiSo/src/circuit.h" "SymCiSo/src/circuit.cpp" "SymCiSo/src/core/core.h" "SymCiSo/src/connection.h" "SymCiSo/include/symciso.h")
  target_include_directories(SymCiSo_Test PRIVATE SymCiSo/src)
+ target_include_directories(SymCiSo_Test PRIVATE SymCiSo/include)
 # Set SymCiSo executable as the default project
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SymCiSo_Test)
 
