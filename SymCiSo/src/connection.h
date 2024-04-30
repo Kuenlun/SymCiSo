@@ -11,7 +11,7 @@ namespace SymCiSo
 	class Connection
 	{
 	public:
-		std::weak_ptr<Component> component;
+		Component* component;
 		size_t	terminal_num;
 	};
 

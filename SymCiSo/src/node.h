@@ -14,7 +14,7 @@ namespace SymCiSo
 	class Node
 	{
 	public:
-		Node(Circuit& circuit);
+		Node(Circuit& circuit, const Connection connection);
 
 		~Node();
 
@@ -44,10 +44,7 @@ namespace SymCiSo
 			first = false;
 
 			// Show the component
-			if (const auto& locked_component = connection.component.lock())
-				os << *locked_component;
-			else
-				os << "?";
+			os << *connection.component;
 			// Show the terminal num
 			os << "->" << connection.terminal_num;
 		}

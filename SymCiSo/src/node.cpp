@@ -5,22 +5,20 @@
 namespace SymCiSo
 {
 
-	Node::Node(Circuit& circuit)
+	Node::Node(Circuit& circuit, const Connection connection)
 		: m_circuit(circuit)
 	{
-		SYMCISO_CORE_TRACE("Node instance created");
+		// Add the connection from the component that created the Node
+		m_connections.emplace_back(connection);
+		// Add a reference to the circuit of the current node
+		get_circuit().get_nodes().push_back(this);
+		SYMCISO_CORE_TRACE("Node instance created {}", *this);
 	}
 
 	Node::~Node()
 	{
-		// Clean the weak_ref to the node in circuit vector of nodes
-		auto& vec_nodes = get_circuit().get_nodes();
-		auto it = std::remove_if(vec_nodes.begin(), vec_nodes.end(), [](const std::weak_ptr<Node>& wp) { return wp.expired(); });
-
-		// Check if any elements were removed before erasing
-		if (it != vec_nodes.end()) {
-			vec_nodes.erase(it, vec_nodes.end());
-		}
+		// Remove this node from the circuit vector of nodes
+		remove_ptr_from_vector(get_circuit().get_nodes(), this);
 
 		SYMCISO_CORE_TRACE("Node instance destructed {}", *this);
 	}
@@ -51,12 +49,7 @@ namespace SymCiSo
 		// Note: "other" is included in "other"'s connections.
 		// Note: If "other" is not referenced by any component it will die automatically
 		for (const auto& connection : other->get_connections())
-		{
-			if (const auto locked = connection.component.lock())
-				locked->get_terminals()[connection.terminal_num] = self;
-			else
-				SYMCISO_CORE_WARN("Connection component is dead");
-		}
+			connection.component->get_terminals()[connection.terminal_num] = self;
 		SYMCISO_CORE_INFO("Node {} connected", *self);
 	}
 
