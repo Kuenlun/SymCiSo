@@ -5,12 +5,12 @@ namespace SymCiSo
 
 	Circuit::Circuit()
 	{
-		SYMCISO_CORE_INFO("Circuit instance created");
+		SYMCISO_CORE_INFO("[Circuit] Created");
 	}
 
 	Circuit::~Circuit()
 	{
-		SYMCISO_CORE_INFO("Circuit instance destructed");
+		SYMCISO_CORE_INFO("[Circuit] Destroying");
 	}
 
 	size_t Circuit::get_num_nodes() const

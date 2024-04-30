@@ -21,12 +21,14 @@ namespace SymCiSo
 			remove_connection_by_ptr(terminal->get_connections(), this);
 		}
 
-		SYMCISO_CORE_TRACE("Component instance destructed: {}", get_name());
+		SYMCISO_CORE_TRACE("[Component] Destroying: {}", get_name());
 	}
 
 	Component::Component(Circuit& circuit, const size_t num_terminals, const std::string& name)
 		: m_circuit(circuit), m_name(name)
 	{
+		SYMCISO_CORE_TRACE("[Component] Created: {}", get_name());
+
 		for (size_t terminal_num{ 0 }; terminal_num < num_terminals; ++terminal_num)
 		{
 			// Create the connection
@@ -36,8 +38,6 @@ namespace SymCiSo
 			};
 			m_terminals.emplace_back(std::make_shared<Node>(get_circuit(), connection));
 		}
-
-		SYMCISO_CORE_TRACE("Component instance created: {}", get_name());
 	}
 
 	void Component::print() const

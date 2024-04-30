@@ -12,15 +12,15 @@ namespace SymCiSo
 		m_connections.emplace_back(connection);
 		// Add a reference to the circuit of the current node
 		get_circuit().get_nodes().push_back(this);
-		SYMCISO_CORE_TRACE("Node instance created {}", *this);
+		SYMCISO_CORE_TRACE("[Node] Created: {}", *this);
 	}
 
 	Node::~Node()
 	{
+		SYMCISO_CORE_TRACE("[Node] Destroying: {}", *this);
+
 		// Remove this node from the circuit vector of nodes
 		remove_ptr_from_vector(get_circuit().get_nodes(), this);
-
-		SYMCISO_CORE_TRACE("Node instance destructed {}", *this);
 	}
 
 	void Node::add_connection(const Connection& connection)

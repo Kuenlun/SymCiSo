@@ -29,7 +29,7 @@ namespace SymCiSo
 			std::shared_ptr<T> component = std::make_shared<T>(*this, args...);
 			// Add the component to the circuit list of components
 			m_components.emplace_back(component);
-			SYMCISO_CORE_INFO("Added {} {}", component->get_class_name(), *component);
+			SYMCISO_CORE_INFO("Added {} {} to circuit", component->get_class_name(), *component);
 			return component;
 		}
 
