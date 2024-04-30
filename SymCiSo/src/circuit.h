@@ -26,7 +26,7 @@ namespace SymCiSo
 		std::shared_ptr<T> add_component(const Args&... args)
 		{
 			// Create a shared ptr to the new component (Resistor, Capacitor, ...)
-			std::shared_ptr<T> component = std::make_shared<T>(this, args...);
+			std::shared_ptr<T> component = std::make_shared<T>(*this, args...);
 
 			// Add to each terminal (Node) of the component a connection (weak ref to the component,
 			// alongside with the position of the terminal)

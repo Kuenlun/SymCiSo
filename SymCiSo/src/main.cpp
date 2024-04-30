@@ -13,6 +13,7 @@ int main()
 	std::shared_ptr<SymCiSo::Resistor> r3_ptr{ circuit.add_component<SymCiSo::Resistor>("R3") };
 	std::shared_ptr<SymCiSo::Capacitor> c1_ptr{ circuit.add_component<SymCiSo::Capacitor>("C1") };
 	std::shared_ptr<SymCiSo::Capacitor> c2_ptr{ circuit.add_component<SymCiSo::Capacitor>("C2") };
+	std::shared_ptr<SymCiSo::Inductor> i1_ptr{ circuit.add_component<SymCiSo::Inductor>("I1") };
 
 	circuit.print();
 	SymCiSo::Node::connect(r1_ptr->get_terminal(0), r2_ptr->get_terminal(0));
@@ -22,6 +23,8 @@ int main()
 	SymCiSo::Node::connect(r2_ptr->get_terminal(0), c1_ptr->get_terminal(0));
 	circuit.print();
 	SymCiSo::Node::connect(r3_ptr->get_terminal(0), c1_ptr->get_terminal(0));
+	circuit.print();
+	SymCiSo::Node::connect(i1_ptr->get_terminal(1), c1_ptr->get_terminal(0));
 	circuit.print();
 
 	SYMCISO_INFO("R1 resistance is : {}", *(r1_ptr->get_resistance()));

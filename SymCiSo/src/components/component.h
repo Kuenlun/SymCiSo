@@ -32,17 +32,15 @@ namespace SymCiSo
 		inline size_t get_num_terminals() const { return m_terminals.size(); };
 
 		inline const std::string& get_name() const { return m_name; }
-		inline Circuit* const get_circuit_ptr() { return m_circuit_ptr; }
+		inline Circuit& get_circuit() { return m_circuit; }
 
 		void print() const;
 
 	protected:
-		Component(Circuit* const circuit,
-			const size_t num_terminals,
-			const std::string& name);
+		Component(Circuit& circuit, const size_t num_terminals, const std::string& name);
 
 	private:
-		Circuit* const m_circuit_ptr;
+		Circuit& m_circuit;
 		std::string m_name;
 		std::vector<std::shared_ptr<Node>> m_terminals;
 	};

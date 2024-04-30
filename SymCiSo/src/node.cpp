@@ -5,8 +5,8 @@
 namespace SymCiSo
 {
 
-	Node::Node(Circuit* const circuit_ptr)
-		: m_circuit_ptr(circuit_ptr)
+	Node::Node(Circuit& circuit)
+		: m_circuit(circuit)
 	{
 		SYMCISO_CORE_TRACE("Node instance created");
 	}
@@ -14,7 +14,7 @@ namespace SymCiSo
 	Node::~Node()
 	{
 		// Clean the weak_ref to the node in circuit vector of nodes
-		auto& vec_nodes = get_circuit_ptr()->get_nodes();
+		auto& vec_nodes = get_circuit().get_nodes();
 		auto it = std::remove_if(vec_nodes.begin(), vec_nodes.end(), [](const std::weak_ptr<Node>& wp) { return wp.expired(); });
 
 		// Check if any elements were removed before erasing

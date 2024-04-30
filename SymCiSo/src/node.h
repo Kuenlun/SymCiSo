@@ -14,7 +14,7 @@ namespace SymCiSo
 	class Node
 	{
 	public:
-		Node(Circuit* const circuit_ptr);
+		Node(Circuit& circuit);
 
 		~Node();
 
@@ -22,13 +22,13 @@ namespace SymCiSo
 
 		inline const std::vector<Connection>& get_connections() const { return m_connections; }
 		inline std::vector<Connection>& get_connections() { return m_connections; }
-		inline Circuit* const get_circuit_ptr() { return m_circuit_ptr; }
+		inline Circuit& get_circuit() { return m_circuit; }
 
 	public:
 		static void connect(const std::shared_ptr<Node>& self, std::shared_ptr<Node>& other);
 
 	private:
-		Circuit* const m_circuit_ptr;
+		Circuit& m_circuit;
 		std::vector<Connection> m_connections;
 	};
 

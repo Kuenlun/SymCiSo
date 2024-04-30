@@ -10,13 +10,11 @@ namespace SymCiSo
 		SYMCISO_CORE_TRACE("Component instance destructed: {}", get_name());
 	}
 
-	Component::Component(Circuit* const circuit_ptr,
-		const size_t num_terminals,
-		const std::string& name)
-		: m_circuit_ptr(circuit_ptr), m_name(name)
+	Component::Component(Circuit& circuit, const size_t num_terminals, const std::string& name)
+		: m_circuit(circuit), m_name(name)
 	{
 		for (size_t i{ 0 }; i < num_terminals; ++i)
-			m_terminals.emplace_back(std::make_shared<Node>(get_circuit_ptr()));
+			m_terminals.emplace_back(std::make_shared<Node>(get_circuit()));
 
 		SYMCISO_CORE_TRACE("Component instance created: {}", get_name());
 	}
