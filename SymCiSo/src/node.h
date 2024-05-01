@@ -20,9 +20,9 @@ namespace SymCiSo
 
 		void add_connection(const Connection& connection);
 
-		inline const std::vector<Connection>& get_connections() const { return m_connections; }
-		inline std::vector<Connection>& get_connections() { return m_connections; }
-		inline Circuit& get_circuit() { return m_circuit; }
+		const std::vector<Connection>& get_connections() const { return m_connections; }
+		std::vector<Connection>& get_connections() { return m_connections; }
+		Circuit& get_circuit() { return m_circuit; }
 
 	public:
 		static void connect(const std::shared_ptr<Node>& self, std::shared_ptr<Node>& other);

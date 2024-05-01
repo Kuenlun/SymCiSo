@@ -26,13 +26,13 @@ namespace SymCiSo
 
 		virtual ~Component();
 
-		inline std::shared_ptr<Node>& get_terminal(const size_t idx) { return m_terminals[idx]; }
-		inline const std::vector<std::shared_ptr<Node>>& get_terminals() const { return m_terminals; }
-		inline std::vector<std::shared_ptr<Node>>& get_terminals() { return m_terminals; }
-		inline size_t get_num_terminals() const { return m_terminals.size(); };
+		std::shared_ptr<Node>& get_terminal(const size_t idx) { return m_terminals[idx]; }
+		const std::vector<std::shared_ptr<Node>>& get_terminals() const { return m_terminals; }
+		std::vector<std::shared_ptr<Node>>& get_terminals() { return m_terminals; }
+		size_t get_num_terminals() const { return m_terminals.size(); };
 
-		inline const std::string& get_name() const { return m_name; }
-		inline Circuit& get_circuit() { return m_circuit; }
+		const std::string& get_name() const { return m_name; }
+		Circuit& get_circuit() { return m_circuit; }
 
 		void print() const;
 

@@ -17,10 +17,10 @@ namespace SymCiSo
 		Circuit();
 		~Circuit();
 
-		inline const std::vector<std::shared_ptr<Component>>& get_components() const { return m_components; }
-		inline size_t get_num_components() const { return m_components.size(); }
+		const std::vector<std::shared_ptr<Component>>& get_components() const { return m_components; }
+		size_t get_num_components() const { return m_components.size(); }
 		size_t get_num_nodes() const;
-		inline std::vector<Node*>& get_nodes() { return m_nodes; }
+		std::vector<Node*>& get_nodes() { return m_nodes; }
 
 		template<typename T, typename... Args>
 		std::shared_ptr<T> add_component(const Args&... args)
