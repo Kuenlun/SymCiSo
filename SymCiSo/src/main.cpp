@@ -27,4 +27,7 @@ int main()
 	SymCiSo::Node::connect(i1_ptr->get_terminal(1), c1_ptr->get_terminal(0));
 	circuit.print();
 	SYMCISO_INFO("R1 resistance is : {}", *(r1_ptr->get_resistance()));
+
+	const SymCiSo::VoltageDiff vdiff(SymCiSo::VoltageDiff(i1_ptr->get_terminal(1), r2_ptr->get_terminal(0)));
+	SYMCISO_INFO("VoltageDiff : {}", vdiff);
 }
