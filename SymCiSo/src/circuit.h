@@ -34,6 +34,8 @@ namespace SymCiSo
 		}
 
 		void print() const;
+		void check_for_unconnected_components() const;
+
 
 	private:
 		std::vector<Node*> m_nodes;

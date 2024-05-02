@@ -8,11 +8,17 @@
 namespace SymCiSo
 {
 
-	class Connection
+	struct Connection
 	{
-	public:
 		Component* component;
 		size_t	terminal_num;
 	};
+
+	template<typename OStream>
+	inline OStream& operator<<(OStream& os, const Connection& conn)
+	{
+		// Show the component and the terminal number
+		return os << *conn.component << "->" << conn.terminal_num;
+	}
 
 } // namespace SymCiSo

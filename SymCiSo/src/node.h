@@ -22,6 +22,7 @@ namespace SymCiSo
 
 		const std::vector<Connection>& get_connections() const { return m_connections; }
 		std::vector<Connection>& get_connections() { return m_connections; }
+		size_t get_num_connections() const { return get_connections().size(); }
 		Circuit& get_circuit() { return m_circuit; }
 
 	public:
@@ -37,16 +38,13 @@ namespace SymCiSo
 	{
 		os << "[";
 		bool first{ true };
-		for (const auto& connection : node.get_connections())
+		for (const auto& conn : node.get_connections())
 		{
 			if (!first)
 				os << ", ";
 			first = false;
-
-			// Show the component
-			os << *connection.component;
-			// Show the terminal num
-			os << "->" << connection.terminal_num;
+			// Show the connection
+			os << conn;
 		}
 		return os << "]";
 	}

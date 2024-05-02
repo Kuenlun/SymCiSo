@@ -26,6 +26,5 @@ int main()
 	circuit.print();
 	SymCiSo::Node::connect(i1_ptr->get_terminal(1), c1_ptr->get_terminal(0));
 	circuit.print();
-
 	SYMCISO_INFO("R1 resistance is : {}", *(r1_ptr->get_resistance()));
 }

@@ -45,11 +45,11 @@ namespace SymCiSo
 		// Show the name of the component
 		SYMCISO_CORE_INFO(*this);
 		// Show each terminal
-		for (size_t i{ 0 }; i < get_terminals().size(); ++i)
+		for (size_t i{ 0 }; i < get_num_terminals(); ++i)
 		{
-			if (i != get_terminals().size() - 1)
+			if (i != get_num_terminals() - 1)
 				SYMCISO_CORE_INFO("{}Terminal {} is connected to: {}", char(195), i, *(get_terminals()[i]));
-			else if (i == get_terminals().size() - 1)
+			else if (i == get_num_terminals() - 1)
 				SYMCISO_CORE_INFO("{}Terminal {} is connected to: {}", char(192), i, *(get_terminals()[i]));
 		}
 	}

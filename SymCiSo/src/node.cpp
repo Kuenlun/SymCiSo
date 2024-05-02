@@ -34,12 +34,19 @@ namespace SymCiSo
 		// Check if the nodes are the same
 		if (self == other)
 		{
-			SYMCISO_CORE_WARN("Nodes already connected");
+			SYMCISO_CORE_WARN("Nodes already connected: {}", *self);
 			// Check if the references are the same
 			if (&self == &other)
 				SYMCISO_CORE_ERROR("Trying to connect a node to itself");
 			return;
 		}
+
+		// Check if connecting the nodes creates a short circuit in any component,
+		// i.e. connecting two or more terminals of the same component.
+		for(const auto& connection_self : self->get_connections())
+			for (const auto& connection_other : other->get_connections())
+				if (connection_self.component == connection_other.component)
+					SYMCISO_CORE_WARN("This connection creates a short circuit between connection {} and {}", connection_self, connection_other);
 
 		// Add the "other" connection to "self" connection
 		for (auto& connection : other->get_connections())
