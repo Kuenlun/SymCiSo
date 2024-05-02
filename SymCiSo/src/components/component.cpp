@@ -8,7 +8,7 @@ namespace SymCiSo
 	static void remove_connection_by_ptr(std::vector<Connection>& vec, const Component* const ptr)
 	{
 		vec.erase(std::remove_if(vec.begin(), vec.end(),
-			[ptr](const Connection& conn) { return conn.component == ptr; }),
+			[ptr](const Connection& conn) { return conn.get_component() == ptr; }),
 			vec.end());
 	}
 
@@ -30,14 +30,7 @@ namespace SymCiSo
 		SYMCISO_CORE_TRACE("[Component] Created: {}", get_name());
 
 		for (size_t terminal_num{ 0 }; terminal_num < num_terminals; ++terminal_num)
-		{
-			// Create the connection
-			const Connection connection{
-				.component {this},
-				.terminal_num{ terminal_num },
-			};
-			m_terminals.emplace_back(std::make_shared<Node>(get_circuit(), connection));
-		}
+			m_terminals.emplace_back(std::make_shared<Node>(get_circuit(), Connection(this, terminal_num)));
 	}
 
 	void Component::print() const

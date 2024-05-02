@@ -18,7 +18,7 @@ add_executable(${PROJECT_NAME}
     SymCiSo/src/circuit.cpp 
     SymCiSo/src/core/core.h
     SymCiSo/src/connection.h
-    SymCiSo/include/symciso.h "SymCiSo/src/voltage_diff.h")
+    SymCiSo/include/symciso.h "SymCiSo/src/voltage_diff.h" "SymCiSo/src/voltage_diff.cpp" "SymCiSo/src/connection.cpp")
  
 target_include_directories(${PROJECT_NAME} PRIVATE SymCiSo/src)
 target_include_directories(${PROJECT_NAME} PRIVATE SymCiSo/include)

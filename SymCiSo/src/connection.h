@@ -4,21 +4,31 @@
 
 #include "core/core.h"
 #include "core/log.h"
+#include "components/component.h"
 
 namespace SymCiSo
 {
 
-	struct Connection
+	class Connection
 	{
-		Component* component;
-		size_t	terminal_num;
+	public:
+		Connection(Component* component, const size_t terminal_num);
+
+		size_t get_terminal_num() const { return m_terminal_num; }
+		Component* get_component() const { return m_component; }
+
+		std::vector<Connection> get_voltage_diff_from_this() const;
+
+	private:
+		Component* m_component;
+		size_t	m_terminal_num;
 	};
 
 	template<typename OStream>
 	inline OStream& operator<<(OStream& os, const Connection& conn)
 	{
 		// Show the component and the terminal number
-		return os << *conn.component << "->" << conn.terminal_num;
+		return os << *conn.get_component() << "->" << conn.get_terminal_num();
 	}
 
 } // namespace SymCiSo

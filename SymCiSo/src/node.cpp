@@ -45,7 +45,7 @@ namespace SymCiSo
 		// i.e. connecting two or more terminals of the same component.
 		for(const auto& connection_self : self->get_connections())
 			for (const auto& connection_other : other->get_connections())
-				if (connection_self.component == connection_other.component)
+				if (connection_self.get_component() == connection_other.get_component())
 					SYMCISO_CORE_WARN("This connection creates a short circuit between connection {} and {}", connection_self, connection_other);
 
 		// Add the "other" connection to "self" connection
@@ -56,7 +56,7 @@ namespace SymCiSo
 		// Note: "other" is included in "other"'s connections.
 		// Note: If "other" is not referenced by any component it will die automatically
 		for (const auto& connection : other->get_connections())
-			connection.component->get_terminals()[connection.terminal_num] = self;
+			connection.get_component()->get_terminals()[connection.get_terminal_num()] = self;
 		SYMCISO_CORE_INFO("Node {} connected", *self);
 	}
 

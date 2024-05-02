@@ -13,28 +13,34 @@ namespace SymCiSo
 	class VoltageDiff
 	{
 	public:
-		VoltageDiff(const std::weak_ptr<Node> node_a, const std::weak_ptr<Node> node_b)
-			: m_nodes{ node_a, node_b }
-		{
-		}
+		VoltageDiff(const std::weak_ptr<Node> node_a, const std::weak_ptr<Node> node_b);
 
-		const std::array<std::weak_ptr<Node>, 2>& get_nodes() const { return m_nodes; }
+		void calculate_voltage_path() const;
+
+		const std::weak_ptr<Node> get_node_a() const { return m_node_a; }
+		const std::weak_ptr<Node> get_node_b() const { return m_node_b; }
 
 	private:
-		const std::array<std::weak_ptr<Node>, 2> m_nodes;
+		const std::weak_ptr<Node> m_node_a;
+		const std::weak_ptr<Node> m_node_b;
 	};
 
 
 	template<typename OStream>
 	inline OStream& operator<<(OStream& os, const VoltageDiff& vdiff)
 	{
-		for (const auto& node_wp : vdiff.get_nodes())
-		{
-			if (const auto locked = node_wp.lock())
-				os << *locked << ", ";
-			else
-				os << '?' << ", ";
-		}
+		if (const auto locked = vdiff.get_node_a().lock())
+			os << *locked;
+		else
+			os << '?';
+
+		os << ", ";
+
+		if (const auto locked = vdiff.get_node_b().lock())
+			os << *locked;
+		else
+			os << '?';
+
 		return os;
 	}
 
