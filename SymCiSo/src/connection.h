@@ -17,8 +17,6 @@ namespace SymCiSo
 		size_t get_terminal_num() const { return m_terminal_num; }
 		Component* get_component() const { return m_component; }
 
-		std::vector<Connection> get_voltage_diff_from_this() const;
-
 	private:
 		Component* m_component;
 		size_t	m_terminal_num;

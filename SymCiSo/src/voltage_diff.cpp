@@ -8,24 +8,79 @@ namespace SymCiSo
 	{
 	}
 
-	void VoltageDiff::calculate_voltage_path() const
+	std::vector<std::weak_ptr<Node>>& VoltageDiff::calculate_voltage_path(std::vector<std::weak_ptr<Node>>& path) const
 	{
 		// Lock the weak pointers
-		const auto node_a{ get_node_a().lock() };
-		const auto node_b{ get_node_b().lock() };
-		if (!node_a)
-			SYMCISO_CORE_ERROR("Node A has expired");
-		if (!node_b)
-			SYMCISO_CORE_ERROR("Node B has expired");
-		if (!node_a || !node_b)
-			return;
+		const auto node_start{ get_node_a().lock() };
+		const auto node_destination{ get_node_b().lock() };
+		if (!node_start)
+			SYMCISO_CORE_ERROR("Start node has expired");
+		if (!node_destination)
+			SYMCISO_CORE_ERROR("Destination node has expired");
+		if (!node_start || !node_destination)
+			return path;
 
-		// Iterate over the node connections
-		for (const auto& conn : node_a->get_connections())
-		{
-			SYMCISO_CORE_CRITICAL("Not implemented");
-			conn.get_voltage_diff_from_this();
-		}
+		find_path(node_start, node_destination, path);
+		return path;
 	}
+
+	static bool is_node_in_path(const std::shared_ptr<Node>& node, const std::vector<std::weak_ptr<Node>>& path) {
+		return std::find_if(path.begin(), path.end(),
+			[&](const std::weak_ptr<Node>& weak_node)
+			{
+				if (auto shared_node = weak_node.lock())
+				{
+					return shared_node == node;
+				}
+				return false;
+			}) != path.end();
+	}
+
+	bool VoltageDiff::find_path(const std::shared_ptr<Node>& node_start,
+		const std::shared_ptr<Node>& node_destination,
+		std::vector<std::weak_ptr<Node>>& path, size_t depth) const
+	{
+		// Add the node_adjacent to the path
+		path.emplace_back(node_start);
+
+		// Check if we have reached the destination node
+		if (node_start == node_destination)
+		{
+			SYMCISO_CORE_INFO("Path found");
+			return true;
+		}
+
+		SYMCISO_CORE_TRACE("({}) From node {}", depth, *node_start);
+		// Iterate over the connections of the current node
+		for (const auto& conn : node_start->get_connections())
+		{
+			SYMCISO_CORE_TRACE("({}) \tFrom conn {}", depth, conn);
+			// Iterate over the adjecent nodes of the component connection
+			for (const auto& node_adjacent : conn.get_component()->get_terminals())
+			{
+				// Check if the connection takes back to the starting node.
+				// This is optional but recommended as each node is includded in its connections
+				if (node_adjacent == node_start)
+					continue;
+				SYMCISO_CORE_TRACE("({}) \t\tTo node {}", depth, *node_adjacent);
+				// Avoid revisiting already visited nodes
+				if (is_node_in_path(node_adjacent, path))
+				{
+					SYMCISO_CORE_TRACE("({}) \t\tAlready visited node {}", depth, *node_adjacent);
+					continue;
+				}
+				// Recursive call to explore adjacent nodes
+				if (find_path(node_adjacent, node_destination, path, ++depth))
+					return true;
+			}
+		}
+
+		// Remove the current node from the path as it's not part of the successful path
+		path.pop_back();
+
+		SYMCISO_CORE_TRACE("({}) Not a valid path", depth);
+		return false;
+	}
+
 
 } // namespace SymCiSo
